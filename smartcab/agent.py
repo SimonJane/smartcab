@@ -132,6 +132,21 @@ class LearningAgent(Agent):
         else:
             action = random.choice(Environment.valid_actions)
 
+
+        #
+        # if not self.learning:
+        #     action = random.choice(self.valid_actions)
+        # else:
+        #     if self.epsilon > 0.01 and self.epsilon > random.random():
+        #         action = random.choice(self.valid_actions)
+        #     else:
+        #         valid_actions = []
+        #         maxQ = self.get_maxQ(state)
+        #         for act in self.Q[state]:
+        #             if maxQ == self.Q[state][act]:
+        #                 valid_actions.append(act)
+        #         action = random.choice(valid_actions)
+
         return action
 
 
@@ -190,7 +205,7 @@ def run():
     # agent = env.create_agent(LearningAgent)
 
     # with learning model
-    kwargs = {'learning': True, 'epsilon': 0.5, 'alpha': 0.05}
+    kwargs = {'learning': True, 'epsilon': 0.05, 'alpha': 0.0005}
 
     agent = env.create_agent(LearningAgent, **kwargs)
 
@@ -207,14 +222,14 @@ def run():
     #   display      - set to False to disable the GUI if PyGame is enabled
     #   log_metrics  - set to True to log trial and simulation results to /logs
     #   optimized    - set to True to change the default log file name
-    sim = Simulator(env, update_delay=1, log_metrics=True, optimized=True, display=True)
+    sim = Simulator(env, update_delay=0.001, log_metrics=True, optimized=True, display=False)
     
     ##############
     # Run the simulator
     # Flags:
     #   tolerance  - epsilon tolerance before beginning testing, default is 0.05 
     #   n_test     - discrete number of testing trials to perform, default is 0
-    sim.run(n_test=5, tolerance=0.8)
+    sim.run(n_test=100, tolerance=0.05)
 
 
 if __name__ == '__main__':
